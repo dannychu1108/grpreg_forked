@@ -172,7 +172,7 @@ grpsurv <- function(X, y, group=1:ncol(X), penalty=c("grLasso", "grMCP", "grSCAD
   # Construct XG, Y
   bilevel <- strtrim(penalty, 2) != "gr"
   Y <- newS(y)
-  XG <- newXG(X[Y$ind, , drop=FALSE], group, group.multiplier, 1, bilevel)
+  XG <- custom_newXG(X[Y$ind, , drop=FALSE], group, group.multiplier, 1, bilevel)
   if (nrow(XG$X) != length(Y$fail)) stop("X and y do not have the same number of observations", call.=FALSE)
 
   # Set up lambda
@@ -218,7 +218,7 @@ grpsurv <- function(X, y, group=1:ncol(X), penalty=c("grLasso", "grMCP", "grSCAD
   if (!bilevel) b <- unorthogonalize(b, XG$X, XG$g, intercept=FALSE)
   if (XG$reorder) b <- b[XG$ord.inv,]
   beta <- matrix(0, nrow=length(XG$scale), ncol=ncol(b))
-  beta[XG$nz,] <- b / XG$scale[XG$nz]
+  beta[XG$nz,] <- b / 1
 
   # Names
   dimnames(beta) <- list(XG$names, round(lambda, digits=4))

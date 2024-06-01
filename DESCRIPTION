@@ -1,4 +1,4 @@
-Package: grpreg_forked
+Package: grpregforked
 Title: Regularization Paths for Regression Models with Grouped Covariates
 Version: 3.4.0.5
 Date: 2023-11-20
